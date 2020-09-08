@@ -1,0 +1,52 @@
+﻿@page
+@using UsersResources = UserManagement.Localization.Users.UsersResources
+@using _LayoutManagement = UserManagement.Localization._LayoutManagement._LayoutManagement
+@using SharedResources = Common.Localization.Shared.Shared
+@model IndexModel
+@{
+    ViewData["Title"] = UsersResources.ChangePhone;
+}
+
+
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+
+<form method="post">
+    <h1>@UsersResources.ChangePhone</h1>
+    <div>
+        <label asp-for="Username"></label>
+        <input asp-for="Username" class="form-control" disabled />
+        <span asp-validation-for="Username" class="text-danger"></span>
+
+    </div>
+
+    <div>
+        <label asp-for="Input.PhoneNumber"></label>
+        <input asp-for="Input.PhoneNumber" class="form-control" />
+        <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+
+    </div>
+
+    <div>
+        <div class="clearfix"></div>
+        <br />
+        <button type="submit" class="btn btn-secondary submit">@SharedResources.Save</button>
+
+    </div>
+
+    <div>
+        <div class="clearfix"></div>
+        <br />
+        <a id="forgot-password" asp-page="/Index" asp-area="UserManagementAdmin" class="btn btn-default submit">@SharedResources.BackToHomePage</a>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="separator">
+
+        <div class="clearfix"></div>
+        <br />
+
+        <div>
+            <h1><i class="fa fa-users"></i>@_LayoutManagement.SystemName</h1>
+        </div>
+    </div>
+</form>

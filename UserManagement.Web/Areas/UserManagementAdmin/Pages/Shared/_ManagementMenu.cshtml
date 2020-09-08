@@ -1,0 +1,99 @@
+﻿@using _LayoutManagement = UserManagement.Localization._LayoutManagement._LayoutManagement
+@using UserManagement.Application
+@using UserManagement.Web.Code
+<!-- sidebar menu -->
+<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+    <div class="menu_section">
+        @*<h3>General</h3>*@
+        <ul class="nav side-menu">
+            <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area,NavigationConstants.Pages.Dashboard,_LayoutManagement.Dashboard,"<i class='fa fa-dashboard'></i>","<li>","</i>"))" />
+            @if (User.IsInRole("Admins"))
+            {
+                <li>
+                    <a><i class="fa fa-shield"></i> @_LayoutManagement.Roles <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area, NavigationConstants.Pages.RoleCreate, _LayoutManagement.NewRole, "", "<li>", "</i>"))" />
+                        <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area, NavigationConstants.Pages.RoleIndex, _LayoutManagement.RolesList, "", "<li>", "</i>"))" />
+                    </ul>
+                </li>
+                <li>
+                    <a><i class="fa fa-shield"></i> @_LayoutManagement.Policies <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area, NavigationConstants.Pages.PolicyCreate, _LayoutManagement.NewPolicy, "", "<li>", "</i>"))" />
+                        <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area, NavigationConstants.Pages.PolicyIndex, _LayoutManagement.PoliciesList, "", "<li>", "</i>"))" />
+                        <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area, NavigationConstants.Pages.ApplyPolicies, _LayoutManagement.ApplyPolicies, "", "<li>", "</i>"))" />
+                    </ul>
+                </li>
+                <li>
+                    <a><i class="fa fa-user"></i> @_LayoutManagement.Users <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area, NavigationConstants.Pages.UserCreate, _LayoutManagement.NewUser, "", "<li>", "</i>"))" />
+                        <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area, NavigationConstants.Pages.UserIndex, _LayoutManagement.UsersList, "", "<li>", "</i>"))" />
+                    </ul>
+                </li>
+                <li>
+                    <a><i class="fa fa-gears"></i> @_LayoutManagement.Settings <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area, NavigationConstants.Pages.SettingsAuthentication, _LayoutManagement.Authentication, "", "<li>", "</i>"))" />
+                        <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area, NavigationConstants.Pages.SettingsSmpt, _LayoutManagement.Smpt, "", "<li>", "</i>"))" />
+                    </ul>
+                </li>
+            }
+            @if (User.IsInRole("Admins") || User.IsInRole("Planner"))
+            {
+                <li>
+                    <a><i class="fa fa-gears"></i> @_LayoutManagement.Rules <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area, NavigationConstants.Pages.AllRules, _LayoutManagement.All_Rules, "", "<li>", "</i>"))" />
+                    </ul>
+                </li>
+            }
+            <li>
+                <a><i class="fa fa-gears"></i> @_LayoutManagement.Invite <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area, NavigationConstants.Pages.Invite, _LayoutManagement.Invite, "", "<li>", "</i>"))" />
+                    @if (User.IsInRole("Admins") || User.IsInRole("Planner"))
+                    {
+                        <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area, NavigationConstants.Pages.InviteSend, _LayoutManagement.Send_Invite, "", "<li>", "</i>"))" />
+                    }
+                </ul>
+            </li>
+            <li>
+                <a><i class="fa fa-gears"></i> @_LayoutManagement.Attendence <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    @if (User.IsInRole("Admins") || User.IsInRole("Planner"))
+                    {
+                        <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area, NavigationConstants.Pages.Attendence, _LayoutManagement.Who_Has_Paied, "", "<li>", "</i>"))" />
+                    }
+                    else
+                    {
+                        <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area, NavigationConstants.Pages.Attendence, _LayoutManagement.Who_Will_Come, "", "<li>", "</i>"))" />
+                    }
+
+                </ul>
+            </li>
+            <li>
+                <a><i class="fa fa-gears"></i> @_LayoutManagement.What_To_Bring <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    
+                        <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area, NavigationConstants.Pages.WTB, _LayoutManagement.What_To_Bring, "", "<li>", "</i>"))" />
+                  
+                </ul>
+            </li>
+            <li>
+                <a><i class="fa fa-gears"></i> @_LayoutManagement.Contact <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+
+                    <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area, NavigationConstants.Pages.ContactPlanner, _LayoutManagement.Planner, "", "<li>", "</i>"))" />
+
+                    <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area, NavigationConstants.Pages.ContactWebMaster, _LayoutManagement.WebMaster, "", "<li>", "</i>"))" />
+
+
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+
+
+</div>

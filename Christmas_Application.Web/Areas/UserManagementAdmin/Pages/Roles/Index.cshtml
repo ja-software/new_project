@@ -1,0 +1,95 @@
+﻿@page
+@using Common.Localization.Shared
+@using CrossCutting.Core.Globalization
+@using RolesManagementResources = UserManagement.Localization.RolesManagement.RolesManagement
+@using SharedResources = Common.Localization.Shared.Shared
+
+@model UserManagement.Web.Areas.UserManagementAdmin.Pages.Roles.IndexModel
+@{
+}
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>@RolesManagementResources.Index_SearchFormTitle <small>@RolesManagementResources.Index_SearchFormDesc</small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+                <form id="frm_Search" method="post" data-parsley-validate class="form-horizontal form-label-left">
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">
+                            @RolesManagementResources.FormRoleName <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input id="txt_name" type="text" name="name" class="form-control ">
+                        </div>
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="item form-group">
+                        <div class="col-md-6 col-sm-6 offset-md-3">
+                            <button id="btn_Search" type="submit" class="btn btn-success">@SharedResources.Search</button>
+                            <button id="btn_Reset" type="button" class="btn btn-primary">@SharedResources.Reset</button>
+                            <button type="submit" asp-page-handler="Cancel" formnovalidate="formnovalidate" class="btn btn-primary">@SharedResources.BackToHomePage</button>
+                            <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area,NavigationConstants.Pages.RoleCreate,RolesManagementResources.Index_SearchFormNewRoleLink,"<i class='fa fa-plus-circle'></i>"))" />
+
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>@RolesManagementResources.Index_ListTitle <small></small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="item form-group">
+
+                    <div class="col-md-12 col-sm-12 ">
+
+                        <div id="TableContainer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section JTableStaticFiles{
+    <partial name="_JTableStaticFiles" />
+}
+@section Scripts{
+    <script type="text/javascript" src="/Globalization/Resources/v1.1/UserManagement.Localization/UserManagement.Localization.RolesManagement.RolesManagement/@CultureHelper.CurrentCultureName/javascript/"></script>
+    <script src="~/ClientApp/UserManagementAdmin/Roles/app.roleIndex.js"></script>
+    <script>
+
+         var initialData = {
+                urlListAction: '@Url.Page("/Roles/Index", "Search" ,new {area= "UserManagementAdmin" })',
+                detailsBaseUrl: '@Url.Page("/Roles/Display", "" ,new {area= "UserManagementAdmin" })',
+                editeBaseUrl: '@Url.Page("/Roles/Edite", "" ,new {area= "UserManagementAdmin" })'
+            };
+
+            $app.roleIndex.Init(initialData);
+    </script>
+}

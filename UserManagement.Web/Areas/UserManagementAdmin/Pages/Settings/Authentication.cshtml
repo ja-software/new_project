@@ -1,0 +1,146 @@
+﻿@page
+@using SettingsManagementResources = UserManagement.Localization.SettingsManagement.SettingsManagement
+@using SharedResources = Common.Localization.Shared.Shared
+
+@model UserManagement.Web.Areas.UserManagementAdmin.Pages.Settings.AuthenticationModel
+@{
+}
+@section Styles{
+    <!-- Switchery -->
+    <link href="~/TemplateManagement/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+}
+
+<div class="row">
+    <div class="col-md-6 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2> @SettingsManagementResources.General <small>@SettingsManagementResources.GeneralDesc</small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+
+                <form id="demo-form2" method="post" data-parsley-validate class="form-label-left">
+                    <div class="form-group row">
+                        <div class="col-md-9 col-sm-9 ">
+                            <div class="">
+                                <label>
+                                    <input type="checkbox" asp-for="Input.AllowRememberMe" class="js-switch" /> @SettingsManagementResources.AllowRememberMe
+                                </label>
+                                <div><small>@SettingsManagementResources.AllowRememberMeDesc</small></div>
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-9 col-sm-9 ">
+                            <div class="">
+                                <label>
+                                    <input type="checkbox" asp-for="Input.AllowForgotPassword" class="js-switch" /> @SettingsManagementResources.AllowForgotPassword
+                                </label>
+                                <div><small>@SettingsManagementResources.AllowForgotPasswordDesc</small></div>
+                                <br />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-9 col-sm-9 ">
+                            <div class="">
+                                <label>
+                                    <input type="checkbox" asp-for="Input.RequireConfirmedAccount" class="js-switch" /> @SettingsManagementResources.RequireConfirmedAccount
+                                </label>
+                                <div><small>@SettingsManagementResources.RequireConfirmedAccountDesc</small></div>
+                                <br />
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="ln_solid"></div>
+                    <div class="item form-group">
+                        <div class="col-md-6 col-sm-6 offset-md-3">
+                            <button type="submit" asp-page-handler="Cancel" formnovalidate="formnovalidate" class="btn btn-primary">@SharedResources.BackToHomePage</button>
+                            <button type="submit" asp-page-handler="SaveAuthenticationGeneral" class="btn btn-success">@SharedResources.Submit</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2> @SettingsManagementResources.AuthenticationThrottle <small>@SettingsManagementResources.AuthenticationThrottleDesc</small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+
+                <form id="demo-form2" method="post" data-parsley-validate>
+                    <div class="form-group row">
+                        <div class="col-md-9 col-sm-9 ">
+                            <div class="">
+                                <label>
+                                    <input id="txt_AllowThrottleAuthentication" type="checkbox" asp-for="Input.AllowThrottleAuthentication" class="js-switch" /> @SettingsManagementResources.AllowThrottleAuthentication
+                                </label>
+                                <div><small>@SettingsManagementResources.AllowThrottleAuthenticationDesc</small></div>
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <label>
+                        @SettingsManagementResources.LockoutTime <span class="required">*</span>
+                    </label>
+
+                    <input id="txt_LockoutTime" asp-for="Input.LockoutTime" class="form-control ">
+                    <div><small> @SettingsManagementResources.LockoutTimeDesc </small></div>
+                    <span asp-validation-for="Input.LockoutTime" class="text-danger"></span>
+
+                    <br />
+                    <label>
+                        @SettingsManagementResources.MaximumNumberOfAttempts<span class="required">*</span>
+                    </label>
+                    <input id="txt_MaximumNumberOfAttempts" asp-for="Input.MaximumNumberOfAttempts" class="form-control ">
+                    <div><small>@SettingsManagementResources.MaximumNumberOfAttemptsDesc</small></div>
+                    <span asp-validation-for="Input.MaximumNumberOfAttempts" class="text-danger"></span>
+
+                    <div class="ln_solid"></div>
+                    <div class="item form-group">
+                        <div class="col-md-6 col-sm-6 offset-md-3">
+                            <button type="submit" asp-page-handler="Cancel" formnovalidate="formnovalidate" class="btn btn-primary">@SharedResources.BackToHomePage</button>
+                            <button type="submit" asp-page-handler="SaveAuthenticationThrottling" class="btn btn-success">@SharedResources.Submit</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <!-- Switchery -->
+    <script src="~/TemplateManagement/vendors/switchery/dist/switchery.min.js"></script>
+    <script src="~/ClientApp/UserManagementAdmin/Settings/app.authentication.js"></script>
+    <script>
+        $app.authentication.Init();
+    </script>
+}

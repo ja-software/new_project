@@ -1,0 +1,25 @@
+﻿@using _LayoutManagement = UserManagement.Localization._LayoutManagement._LayoutManagement
+@using UsersResources=UserManagement.Localization.Users.UsersResources
+@using CrossCutting.Core.Globalization;
+@inject UserManager<UserManagement.Domain.Models.ApplicationUser> UserManager
+@{ 
+    var currentUserId = UserManager.GetUserId(User);
+    var paddingDirection = CultureHelper.IsArabic ? "right" : "left";
+}
+<li class="nav-item dropdown open" style="padding-@(paddingDirection): 15px;">
+    <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+        <img src="@Url.Page("/Index", "LoadUserImage", new { area = "",userName=User.Identity.Name })" alt="...">
+        @User.Identity.Name
+    </a>
+    <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" asp-page="@NavigationConstants.Pages.UserDisplay" asp-route-userId="@currentUserId" asp-area="@NavigationConstants.Area"> @_LayoutManagement.Profile</a>
+        <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel("Identity","/Account/Manage/Index",_LayoutManagement.ChangePhone,"",cssClass:"dropdown-item"))" />
+        <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel("Identity","/Account/Manage/Email",_LayoutManagement.ChangeEmail,"",cssClass:"dropdown-item"))" />
+        <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel("Identity","/Account/Manage/ChangePassword",_LayoutManagement.ChangePassword,"",cssClass:"dropdown-item"))" />
+
+        <a class="dropdown-item" id="lnk_logout"><i class="fa fa-sign-out pull-right"></i> @UsersResources.LogOut</a>
+
+        <form id="frm_logout" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+        </form>
+    </div>
+</li>

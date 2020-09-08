@@ -1,0 +1,58 @@
+﻿@page
+@using UsersResources = UserManagement.Localization.Users.UsersResources
+@using _LayoutManagement = UserManagement.Localization._LayoutManagement._LayoutManagement
+
+@model LoginModel
+
+@{
+    ViewData["Title"] = UsersResources.Login;
+}
+
+    <form method="post">
+        <h1>@UsersResources.Login </h1>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div>
+            <input asp-for="Input.UserName" class="form-control" placeholder="@(UsersResources.UserName)" />
+            <span asp-validation-for="Input.UserName" class="text-danger"></span>
+
+        </div>
+        <div>
+            <input asp-for="Input.Password" class="form-control" placeholder="@(UsersResources.Password)" />
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+
+        </div>
+        @if (Model.AllowRememberMe)
+        {
+            <div>
+                <label asp-for="Input.RememberMe">
+                    <input asp-for="Input.RememberMe" />
+                    @UsersResources.RememberMe
+                    @*@Html.DisplayNameFor(m => m.Input.RememberMe)*@
+                </label>
+            </div>
+        }
+        <div>
+            <button type="submit" class="btn btn-secondary submit">@UsersResources.Login</button>
+            @if (Model.AllowForgotPassword)
+            {
+                <a id="forgot-password" asp-page="./ForgotPassword" class="reset_pass">@UsersResources.ForgotPassword</a>
+            }
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="separator">
+            <p class="change_link">
+                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl"> @UsersResources.RegisterNewUser</a>
+            </p>
+
+            <div class="clearfix"></div>
+            <br />
+
+            <div>
+                <h1><i class="fa fa-users"></i> @_LayoutManagement.SystemName</h1>
+                @*<p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>*@
+            </div>
+        </div>
+    </form>

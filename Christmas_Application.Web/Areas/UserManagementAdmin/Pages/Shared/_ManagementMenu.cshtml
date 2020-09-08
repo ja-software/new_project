@@ -1,0 +1,43 @@
+﻿@using _LayoutManagement = UserManagement.Localization._LayoutManagement._LayoutManagement
+@using UserManagement.Application
+@using UserManagement.Web.Code
+<!-- sidebar menu -->
+<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+    <div class="menu_section">
+        @*<h3>General</h3>*@
+        <ul class="nav side-menu">
+            <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area,NavigationConstants.Pages.Dashboard,_LayoutManagement.Dashboard,"<i class='fa fa-dashboard'></i>","<li>","</i>"))" />
+            <li>
+                <a><i class="fa fa-shield"></i> @_LayoutManagement.Roles <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area,NavigationConstants.Pages.RoleCreate,_LayoutManagement.NewRole,"","<li>","</i>"))" />
+                    <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area,NavigationConstants.Pages.RoleIndex,_LayoutManagement.RolesList,"","<li>","</i>"))" />
+                </ul>
+            </li>
+            <li>
+                <a><i class="fa fa-shield"></i> @_LayoutManagement.Policies <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area,NavigationConstants.Pages.PolicyCreate,_LayoutManagement.NewPolicy,"","<li>","</i>"))" />
+                    <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area,NavigationConstants.Pages.PolicyIndex,_LayoutManagement.PoliciesList,"","<li>","</i>"))" />
+                    <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area,NavigationConstants.Pages.ApplyPolicies,_LayoutManagement.ApplyPolicies,"","<li>","</i>"))" />
+                </ul>
+            </li>
+            <li>
+                <a><i class="fa fa-user"></i> @_LayoutManagement.Users <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area,NavigationConstants.Pages.UserCreate,_LayoutManagement.NewUser,"","<li>","</i>"))" />
+                    <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area,NavigationConstants.Pages.UserIndex,_LayoutManagement.UsersList,"","<li>","</i>"))" />
+                </ul>
+            </li>
+            <li>
+                <a><i class="fa fa-gears"></i> @_LayoutManagement.Settings <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area,NavigationConstants.Pages.SettingsAuthentication,_LayoutManagement.Authentication,"","<li>","</i>"))" />
+                    <partial name="_AuthorizedLink" model="@(new AuthorizedLinkViewModel(NavigationConstants.Area,NavigationConstants.Pages.SettingsSmpt,_LayoutManagement.Smpt,"","<li>","</i>"))" />
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+
+</div>

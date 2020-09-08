@@ -1,0 +1,16 @@
+﻿@using UserManagement.Web.Code
+@using UserManagement.Application.Authorization
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+
+@model AuthorizedLinkViewModel
+
+@if (AuthorizationService.CanUserAccessPage(User, Model.Page, Model.Area))
+{
+    @Html.Raw(Model.ParentElementStart)
+    <a class="@Model.CssClass" asp-page="@Model.Page" asp-area="@Model.Area">
+        @Html.Raw(Model.HtmlIcon)
+        @Model.LinkName
+    </a>
+    @Html.Raw(Model.ParentElementEnd)
+}

@@ -1,0 +1,62 @@
+﻿@page
+@using UsersResources = UserManagement.Localization.Users.UsersResources
+@using _LayoutManagement = UserManagement.Localization._LayoutManagement._LayoutManagement
+@using SharedResources = Common.Localization.Shared.Shared
+@model EmailModel
+@{
+    ViewData["Title"] = UsersResources.EditMyEmail;
+}
+
+
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+
+<form method="post">
+    <h1>@UsersResources.EditMyEmail</h1>
+    <div>
+        <label>
+            @UsersResources.Email
+        </label>
+        @if (Model.IsEmailConfirmed)
+        {
+            <div class="input-group">
+                <input asp-for="Email" class="form-control" disabled />
+            
+            </div>
+        }
+        else
+        {
+            <input asp-for="Email" class="form-control" disabled />
+            <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">Send verification email</button>
+        }
+    </div>
+
+    <div>
+        <label>
+            @UsersResources.NewEmail
+        </label>
+        <input asp-for="Input.NewEmail" class="form-control" />
+        <span asp-validation-for="Input.NewEmail" class="text-danger"></span>
+
+    </div>
+
+    <div>
+        <button type="submit" asp-page-handler="ChangeEmail" class="btn btn-secondary submit">@UsersResources.EditMyEmail</button>
+
+    </div>
+    <div>
+        <div class="clearfix"></div>
+        <br />
+        <a id="forgot-password" asp-page="/Index" asp-area="UserManagementAdmin" class="btn btn-default submit">@SharedResources.BackToHomePage</a>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="separator">
+
+        <div class="clearfix"></div>
+        <br />
+
+        <div>
+            <h1><i class="fa fa-users"></i>@_LayoutManagement.SystemName</h1>
+        </div>
+    </div>
+</form>

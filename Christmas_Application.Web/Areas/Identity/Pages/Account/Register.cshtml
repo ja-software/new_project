@@ -1,0 +1,46 @@
+﻿@page
+@using UsersResources = UserManagement.Localization.Users.UsersResources
+@using _LayoutManagement = UserManagement.Localization._LayoutManagement._LayoutManagement
+@using SharedResources = Common.Localization.Shared.Shared
+@model RegisterModel
+@{
+    ViewData["Title"] = UsersResources.Register;
+}
+
+<form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+    <h1>@UsersResources.Register</h1>
+    <div>
+        <input asp-for="Input.UserName" class="form-control" placeholder="@(UsersResources.UserName)" />
+        <span asp-validation-for="Input.UserName" class="text-danger"></span>
+    </div>
+    <div>
+        <input asp-for="Input.Email" class="form-control" placeholder="@(UsersResources.Email)" />
+        <span asp-validation-for="Input.Email" class="text-danger"></span>
+    </div>
+    <div>
+        <input asp-for="Input.Password" class="form-control" placeholder="@(UsersResources.Password)" />
+        <span asp-validation-for="Input.Password" class="text-danger"></span>
+    </div>
+    <div>
+        <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="@(UsersResources.ConfirmPassword)" />
+        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-secondary submit">@UsersResources.Register</button>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="separator">
+
+
+        <div class="clearfix"></div>
+        <br />
+
+        <div>
+            <h1><i class="fa fa-users"></i> @_LayoutManagement.SystemName</h1>
+        </div>
+    </div>
+</form>

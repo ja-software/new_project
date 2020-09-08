@@ -1,0 +1,197 @@
+﻿@page "/Users/Display/{userId?}"
+@using UsersManagementResources = UserManagement.Localization.UsersManagement.UsersManagement;
+@using SharedResources = Common.Localization.Shared.Shared;
+@using UserManagement.Domain.Models
+@model UserManagement.Web.Areas.UserManagementAdmin.Pages.Users.DisplayModel
+@{
+}
+
+@section Styles{
+    <!-- Switchery -->
+    <link href="~/TemplateManagement/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="~/TemplateManagement/vendors/iCheck/skins/flat/green.css" rel="stylesheet" />
+    <!--dropify-->
+    <link href="~/TemplateManagement/vendors/dropify/dist/css/dropify.css" rel="stylesheet" />
+}
+
+
+<div class="row">
+    <div class="col-md-3 col-sm-12 ">
+        <div class="x_panel">
+           
+            <div class="x_content">
+                <br />
+                <form  class="form-horizontal form-label-left">
+                    <div class="item form-group">
+                        <div class="col-md-12 col-sm-12 ">
+                            <img src="@Url.Page("/Index", "LoadUserImage", new { area = "",userName=Model.Input.UserName })" alt="..." class="img-circle profile_img">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>@UsersManagementResources.Display_FormTitle<small></small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+                <form id="demo-form2" method="post" data-parsley-validate class="form-horizontal form-label-left">
+
+                    @*<div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">
+                            @UsersManagementResources.FormImage
+                        </label>
+
+                        <div class="col-md-3 col-sm-6 ">
+                            <img src="@Url.Page("/Index", "LoadUserImage", new { area = "",userName=Model.Input.UserName })" alt="..." class="img-circle profile_img">
+                        </div>
+                    </div>*@
+
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">
+                            @UsersManagementResources.FormFirstName <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <span>@Model.Input.FirstName</span>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                            @UsersManagementResources.FormMiddleName  <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <span>@Model.Input.MiddleName</span>
+                        </div>
+                    </div>
+
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                            @UsersManagementResources.FormLastName  <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <span>@Model.Input.LastName</span>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                            @UsersManagementResources.FormBirthDate <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <span>@Model.Input.BirthDateString</span>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                            @UsersManagementResources.FormPhone  <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <span>@Model.Input.PhoneNumber</span>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align"> @UsersManagementResources.FormGender</label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <p>
+                                @UsersManagementResources.FormMale :
+                                @Html.RadioButtonFor(m => m.Input.GenderId, (int)Enumerations.GenderEnum.Male, new { @class = "flat", disabled = "disabled" })
+                                @UsersManagementResources.FormFemale :
+                                @Html.RadioButtonFor(m => m.Input.GenderId, (int)Enumerations.GenderEnum.Female, new { @class = "flat", disabled = "disabled" })
+                            </p>
+                            <span asp-validation-for="Input.GenderId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                            @UsersManagementResources.FormEmail <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <span>@Model.Input.Email</span>
+                        </div>
+                    </div>
+
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                            @UsersManagementResources.FormUserName <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <span>@Model.Input.UserName</span>
+                        </div>
+                    </div>
+
+
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                            @UsersManagementResources.FormAddress <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <span>@Model.Input.Address</span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                            @SharedResources.Activate
+                        </label>
+                        <div class="col-md-9 col-sm-9 ">
+                            <div class="">
+                                <label>
+                                    <input type="checkbox" asp-for="Input.Active" class="js-switch" disabled="disabled" />  @SharedResources.Activate /  @SharedResources.Deactivate
+                                </label>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">@UsersManagementResources.FormRoles</label>
+
+                        <div class="col-md-6 col-sm-6 ">
+                            @foreach (var role in Model.Input.Roles)
+                            {
+                                <div>@role </div>
+                            }
+
+                        </div>
+                    </div>
+
+                    <div class="ln_solid"></div>
+                    <div class="item form-group">
+                        <div class="col-md-6 col-sm-6 offset-md-3">
+                            <button type="submit" asp-page-handler="Cancel" formnovalidate="formnovalidate" class="btn btn-primary">@SharedResources.BackToList</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <!-- Switchery -->
+    <script src="~/TemplateManagement/vendors/switchery/dist/switchery.min.js"></script>
+    <!-- iCheck -->
+    <script src="~/TemplateManagement/vendors/iCheck/icheck.min.js"></script>
+    <!--dropify-->
+    <script src="~/TemplateManagement/vendors/dropify/dist/js/dropify.min.js"></script>
+    <script src="~/ClientApp/UserManagementAdmin/Users/app.display.js"></script>
+    <script>
+        $app.display.Init();
+    </script>
+}

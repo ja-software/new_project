@@ -1,0 +1,82 @@
+﻿@page
+@using PoliciesManagementResources = UserManagement.Localization.PoliciesManagement.PoliciesManagement
+@using SharedResources = Common.Localization.Shared.Shared
+@model UserManagement.Web.Areas.UserManagementAdmin.Pages.Policies.CreateModel
+@{
+}
+
+
+@section Styles{
+    <!-- iCheck -->
+    <link href="~/TemplateManagement/vendors/iCheck/skins/flat/green.css" rel="stylesheet" />
+}
+
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>@PoliciesManagementResources.Create_FormTitle <small>@PoliciesManagementResources.Create_FormDesc</small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <form id="demo-form2" method="post" data-parsley-validate class="form-horizontal form-label-left">
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">
+                            @PoliciesManagementResources.FormPolicyName <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" asp-for="Input.Name" class="form-control ">
+                            <small>@PoliciesManagementResources.msg_DontWriteSpaces</small>
+                            <span asp-validation-for="Input.Name" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align"> @PoliciesManagementResources.FormRoles</label>
+
+                        <div class="col-md-6 col-sm-6 ">
+                            @foreach (var role in Model.RolesList)
+                            {
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="Input.SelectedRoleIds" value="@role.Id" class="flat"> @role.Name
+                                    </label>
+                                </div>
+                            }
+
+
+                        </div>
+                    </div>
+
+                    <div class="ln_solid"></div>
+                    <div class="item form-group">
+                        <div class="col-md-6 col-sm-6 offset-md-3">
+                            <button type="submit" asp-page-handler="Submit" class="btn btn-success">@SharedResources.Submit</button>
+                            <button class="btn btn-primary" type="reset">@SharedResources.Reset</button>
+                            <button type="submit" asp-page-handler="Cancel" formnovalidate="formnovalidate" class="btn btn-primary">@SharedResources.BackToList</button>
+
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <!-- iCheck -->
+    <script src="~/TemplateManagement/vendors/iCheck/icheck.min.js"></script>
+}

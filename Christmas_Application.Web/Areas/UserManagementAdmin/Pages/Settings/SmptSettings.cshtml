@@ -1,0 +1,90 @@
+﻿@page
+@using SettingsManagementResources = UserManagement.Localization.SettingsManagement.SettingsManagement
+@using SharedResources = Common.Localization.Shared.Shared
+@model UserManagement.Web.Areas.UserManagementAdmin.Pages.Settings.SmptSettingsModel
+@{
+}
+
+@section Styles{
+    <!-- Switchery -->
+    <link href="~/TemplateManagement/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+}
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2> @SettingsManagementResources.SMTPSetting_Title<small>@SettingsManagementResources.SMTPSettingDesc</small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+
+                <form id="demo-form2" method="post" data-parsley-validate>
+                    <div class="form-group row">
+                        <div class="col-md-9 col-sm-9 ">
+                            <div class="">
+                                <label>
+                                    <input type="checkbox" asp-for="Input.IsSmtpAuthenticated" class="js-switch" /> @SettingsManagementResources.IsSmtpAuthenticated
+                                </label>
+                                <br />
+                            </div>
+                            <div class="">
+                                <label>
+                                    <input type="checkbox" asp-for="Input.SmtpEnableSSL" class="js-switch" /> @SettingsManagementResources.SmtpEnableSSL
+                                </label>
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+
+                    <label>
+                        @SettingsManagementResources.SmtpServer <span class="required">*</span>
+                    </label>
+                    <input asp-for="Input.SmtpServer" class="form-control ">
+                    <span asp-validation-for="Input.SmtpServer" class="text-danger"></span>
+                    <br />
+
+                    <label>
+                        @SettingsManagementResources.SmtpPort <span class="required">*</span>
+                    </label>
+                    <input asp-for="Input.SmtpPort" class="form-control ">
+                    <span asp-validation-for="Input.SmtpPort" class="text-danger"></span>
+                    <br />
+
+                    <label>
+                        @SettingsManagementResources.SmtpUserName <span class="required">*</span>
+                    </label>
+                    <input asp-for="Input.SmtpUserName" class="form-control ">
+                    <span asp-validation-for="Input.SmtpUserName" class="text-danger"></span>
+                    <br />
+
+                    <label>
+                        @SettingsManagementResources.SmtpPassword <span class="required">*</span>
+                    </label>
+                    <input asp-for="Input.SmtpPassword" class="form-control ">
+                    <span asp-validation-for="Input.SmtpPassword" class="text-danger"></span>
+                    <br />
+
+                    <div class="ln_solid"></div>
+                    <div class="item form-group">
+                        <div class="col-md-6 col-sm-6 offset-md-3">
+                            <button type="submit" asp-page-handler="Cancel" formnovalidate="formnovalidate" class="btn btn-primary">@SharedResources.BackToHomePage</button>
+                            <button type="submit" asp-page-handler="Submit" class="btn btn-success">@SharedResources.Submit</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{    <!-- Switchery -->
+    <script src="~/TemplateManagement/vendors/switchery/dist/switchery.min.js"></script>
+}

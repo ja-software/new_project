@@ -1,0 +1,170 @@
+﻿@using CrossCutting.Core
+@using Common.Localization.Shared
+@using SharedResources = Common.Localization.Shared.Shared
+@using _LayoutManagement = UserManagement.Localization._LayoutManagement._LayoutManagement
+@using UserManagement.Application.Extensions 
+@using CrossCutting.Core.Globalization
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="~/images/favicon.ico" type="image/ico" />
+
+    <title>@_LayoutManagement.SystemName | @ViewBag.Title</title>
+
+
+
+
+    @RenderSection("Styles", required: false)
+
+    <!-- Custom Theme Style -->
+    @if (CultureHelper.IsArabic)
+    {
+        <!-- Bootstrap -->
+        <link href="~/TemplateManagement/vendors/bootstrap/dist/css/bootstrap.ar.css" rel="stylesheet" />
+        <!-- Font Awesome -->
+        <link href="~/TemplateManagement/vendors/font-awesome/css/font-awesome.ar.css" rel="stylesheet" />
+
+        <link href="~/TemplateManagement/build/css/custom.ar.css" rel="stylesheet" />
+    }
+    else
+    { <!-- Bootstrap -->
+        <link href="~/TemplateManagement/vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+        <!-- Font Awesome -->
+        <link href="~/TemplateManagement/vendors/font-awesome/css/font-awesome.css" rel="stylesheet" />
+
+
+        <link href="~/TemplateManagement/build/css/custom.css" rel="stylesheet" />
+    }
+
+
+
+</head>
+<body class="nav-md">
+
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a asp-page="@NavigationConstants.Pages.Dashboard" asp-area="@NavigationConstants.Area" class="site_title"><i class="fa fa-users"></i> <span>@_LayoutManagement.SystemName</span></a>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <!-- menu profile quick info -->
+                    <div class="profile clearfix">
+                        <div class="profile_pic">
+                            <img src="@Url.Page("/Index", "LoadUserImage", new { area = "",userName=User.Identity.Name })" alt="..." class="img-circle profile_img">
+                        </div>
+                        <div class="profile_info">
+                            <span>@_LayoutManagement.Welcome</span>
+                            <h2>@User.Identity.Name</h2>
+                        </div>
+                        <div class="profile_info">
+                            <span>@_LayoutManagement.LastLoginDate</span>
+                            <br />
+                            <h2 style="color:white;">@(await User.Identity.GetLastLoginDate(Context))</h2>
+                        </div>
+                    </div>
+                    <!-- /menu profile quick info -->
+                    <br />
+                    <partial name="_ManagementMenu" />
+
+                </div>
+            </div>
+
+            <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <nav class="nav navbar-nav">
+                        <ul class=" navbar-right">
+                            <partial name="_ProfileMenu" />
+                            @{ 
+                                var paddingDirection = CultureHelper.IsArabic ? "right" : "left";
+
+                            }
+                            <li class="nav-item open" style="padding-@(paddingDirection): 15px;padding-top: 5px;">
+                                <a class="switch-lang lang display user-profile" href="JavaScript:void(0);" id="lang-switcher" title="@SharedResources.SwitchLanguage">
+                                    <i class="fa fa-globe"></i>
+                                    @if (CultureHelper.IsArabic)
+                                    {
+                                        <span id="spn_lang">@SharedResources.English</span>
+                                    }
+                                    else
+                                    {
+                                        <span id="spn_lang">@SharedResources.Arabic</span>
+                                    }
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- /top navigation -->
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+
+                    <partial name="_UMPageTitlePartial" />
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div id="div_MessageParent" class="col-md-12 col-sm-12 ">
+                            <partial name="_UMStatusMessagePartial" />
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    @RenderBody()
+                </div>
+            </div>
+            <!-- /page content -->
+            <!-- footer content -->
+            <footer>
+
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
+        </div>
+    </div>
+
+
+    <!-- jQuery -->
+    <script src="~/TemplateManagement/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/TemplateManagement/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom Theme Scripts -->
+    <script src="~/TemplateManagement/build/js/custom.min.js"></script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    @RenderSection("JTableStaticFiles", false)
+
+    <script type="text/javascript" src="/Globalization/Resources/v1.1/Common.Localization/Common.Localization.Shared.Shared/@CultureHelper.CurrentCultureName/javascript/"></script>
+
+    <script src="~/ClientApp/Shared.js"></script>
+    <script src="~/ClientApp/app.main.js"></script>
+    <script src="~/ClientApp/Localization.js"></script>
+
+    @RenderSection("Scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            initLangSwitcher();
+
+            $('#lnk_logout').click(function () {
+                $('#frm_logout').submit();
+            });
+        });
+    </script>
+</body>
+</html>
